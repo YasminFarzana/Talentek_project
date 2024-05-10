@@ -6,6 +6,7 @@ import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.testng.util.Strings;
 
 public class Hook extends config {
     public static String baseURL;
@@ -15,6 +16,12 @@ public class Hook extends config {
     @Before
     public void beforeEachTest(){
         driver = setupBrowser(browserType);
+        if (Strings.isNullOrEmpty(envType)){
+            envType = "qa";
+        }
+        if (Strings.isNullOrEmpty(browserType)){
+            browserType = "chrome";
+        }
         switch (envType){
             case "qa":
                 baseURL = "https://qa.taltektc.com";
